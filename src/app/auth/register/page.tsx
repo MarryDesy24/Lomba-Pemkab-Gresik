@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -13,22 +15,34 @@ export default function RegisterPage() {
     village: "",
   });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { signUp } = useAuth();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
 
     if (formData.password !== formData.confirmPassword) {
-      alert("Password tidak cocok!");
+      setError("Password tidak cocok!");
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setError("Password minimal 6 karakter!");
       return;
     }
 
     setLoading(true);
 
-    // Demo mode - not connected to Supabase yet
-    alert(
-      "Pendaftaran berhasil! (Demo - belum terhubung dengan Supabase Auth)"
-    );
-    setLoading(false);
+    try {
+      await signUp(formData.email, formData.password, formData.name);
+      router.push("/");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Gagal mendaftar");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -182,6 +196,12 @@ export default function RegisterPage() {
               />
             </div>
           </div>
+
+          {error && (
+            <div className="bg-red-50 text-red-700 p-3 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
 
           <button
             type="submit"

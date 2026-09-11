@@ -2,21 +2,32 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { signIn } = useAuth();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
-    // Demo mode - not connected to Supabase yet
-    alert(
-      "Login berhasil! (Demo - belum terhubung dengan Supabase Auth)"
-    );
-    setLoading(false);
+    try {
+      await signIn(email, password);
+      router.push("/");
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Email atau password salah"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -81,6 +92,12 @@ export default function LoginPage() {
             </div>
           </div>
 
+          {error && (
+            <div className="bg-red-50 text-red-700 p-3 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
+
           <button
             type="submit"
             disabled={loading}
@@ -89,34 +106,6 @@ export default function LoginPage() {
             {loading ? "Memproses..." : "Masuk"}
           </button>
         </form>
-
-        <div className="mt-6">
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300" />
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-gray-50 text-gray-500">
-                Atau masuk dengan
-              </span>
-            </div>
-          </div>
-
-          <div className="mt-6 grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-            >
-              Google
-            </button>
-            <button
-              type="button"
-              className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-            >
-              Facebook
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );
