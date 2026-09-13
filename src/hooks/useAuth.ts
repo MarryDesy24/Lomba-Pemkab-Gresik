@@ -80,7 +80,14 @@ export function useAuth() {
     return () => subscription.unsubscribe();
   }, [supabase, fetchProfile]);
 
-  const signUp = async (email: string, password: string, name: string) => {
+  const signUp = async (
+    email: string,
+    password: string,
+    name: string,
+    role: UserRole = "masyarakat",
+    phone?: string,
+    village?: string
+  ) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
@@ -94,14 +101,30 @@ export function useAuth() {
     }
 
     if (data.user) {
-      const { error: profileError } = await supabase.from("profiles").insert({
+      const profileData: {
+        id: string;
+        name: string;
+        role: UserRole;
+        phone?: string;
+        village?: string;
+      } = {
         id: data.user.id,
         name,
-        role: "masyarakat",
-      });
+        role,
+      };
+
+      if (phone) profileData.phone = phone;
+      if (village) profileData.village = village;
+
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .insert(profileData);
 
       if (profileError) {
         console.error("Error creating profile:", profileError);
+        throw new Error(
+          "Akun berhasil dibuat namun gagal membuat profil. Silakan hubungi admin."
+        );
       }
     }
 

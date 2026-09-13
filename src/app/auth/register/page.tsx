@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+
+type RoleOption = "nelayan" | "masyarakat";
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -13,15 +14,22 @@ export default function RegisterPage() {
     confirmPassword: "",
     phone: "",
     village: "",
+    role: "" as RoleOption | "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const { signUp } = useAuth();
-  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
+
+    if (!formData.role) {
+      setError("Silakan pilih role pengguna!");
+      return;
+    }
 
     if (formData.password !== formData.confirmPassword) {
       setError("Password tidak cocok!");
@@ -36,8 +44,17 @@ export default function RegisterPage() {
     setLoading(true);
 
     try {
-      await signUp(formData.email, formData.password, formData.name);
-      router.push("/");
+      await signUp(
+        formData.email,
+        formData.password,
+        formData.name,
+        formData.role,
+        formData.phone || undefined,
+        formData.village || undefined
+      );
+      setSuccess(
+        "Registrasi berhasil! Silakan cek email Anda untuk verifikasi, lalu login."
+      );
     } catch (err) {
       setError(err instanceof Error ? err.message : "Gagal mendaftar");
     } finally {
@@ -85,6 +102,72 @@ export default function RegisterPage() {
                 className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Nama lengkap Anda"
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Daftar sebagai <span className="text-red-500">*</span>
+              </label>
+              <div className="mt-2 space-y-2">
+                <label
+                  className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
+                    formData.role === "nelayan"
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-300 hover:border-gray-400"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="role"
+                    value="nelayan"
+                    checked={formData.role === "nelayan"}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        role: e.target.value as RoleOption,
+                      })
+                    }
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                  />
+                  <span className="ml-3">
+                    <span className="block text-sm font-medium text-gray-900">
+                      Nelayan
+                    </span>
+                    <span className="block text-xs text-gray-500">
+                      Akses informasi keselamatan dan checklist melaut
+                    </span>
+                  </span>
+                </label>
+                <label
+                  className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
+                    formData.role === "masyarakat"
+                      ? "border-blue-500 bg-blue-50"
+                      : "border-gray-300 hover:border-gray-400"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="role"
+                    value="masyarakat"
+                    checked={formData.role === "masyarakat"}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        role: e.target.value as RoleOption,
+                      })
+                    }
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
+                  />
+                  <span className="ml-3">
+                    <span className="block text-sm font-medium text-gray-900">
+                      Masyarakat
+                    </span>
+                    <span className="block text-xs text-gray-500">
+                      Lapor limbah, sampaikan aspirasi, dan jelajahi produk
+                    </span>
+                  </span>
+                </label>
+              </div>
             </div>
 
             <div>
@@ -200,6 +283,12 @@ export default function RegisterPage() {
           {error && (
             <div className="bg-red-50 text-red-700 p-3 rounded-lg text-sm">
               {error}
+            </div>
+          )}
+
+          {success && (
+            <div className="bg-green-50 text-green-700 p-3 rounded-lg text-sm">
+              {success}
             </div>
           )}
 

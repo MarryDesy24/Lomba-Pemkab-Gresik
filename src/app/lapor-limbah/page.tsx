@@ -63,7 +63,7 @@ export default function LaporLimbahPage() {
           .upload(fileName, file);
 
         if (uploadError) {
-          throw new Error("Gagal mengupload foto");
+          throw new Error("Gagal upload foto: " + (uploadError.message || uploadError));
         }
 
         const {
@@ -83,7 +83,7 @@ export default function LaporLimbahPage() {
       });
 
       if (insertError) {
-        throw new Error("Gagal menyimpan laporan");
+        throw new Error("Gagal simpan laporan: " + (insertError.message || insertError));
       }
 
       setSubmitted(true);
