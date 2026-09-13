@@ -1,10 +1,17 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function Header() {
   const { user, profile, signOut, loading } = useAuth();
+  const router = useRouter();
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.push("/auth/login");
+  };
 
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
@@ -63,7 +70,7 @@ export default function Header() {
                   {profile?.name}
                 </span>
                 <button
-                  onClick={() => signOut()}
+                  onClick={handleSignOut}
                   className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium"
                 >
                   Keluar
