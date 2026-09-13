@@ -61,237 +61,258 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div className="text-center">
-          <span className="text-4xl">🌊</span>
-          <h2 className="mt-4 text-3xl font-bold text-gray-900">
-            Daftar di Bawean Action
-          </h2>
-          <p className="mt-2 text-sm text-gray-600">
+    <div className="min-h-screen flex bg-[#0b1120] relative overflow-hidden">
+      {/* Decorative floating elements */}
+      <div className="absolute top-20 left-10 w-3 h-3 bg-blue-400 rounded-full opacity-40 animate-pulse" />
+      <div className="absolute bottom-40 right-20 w-2 h-2 bg-purple-400 rounded-full opacity-30 animate-pulse" />
+      <div className="absolute top-1/3 left-1/4 w-2 h-2 bg-cyan-400 rounded-full opacity-20 animate-pulse" />
+
+      {/* Gradient overlays */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-purple-900/10" />
+
+      {/* Left side - Branding */}
+      <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 to-purple-900/30" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl" />
+
+        <div className="relative z-10 text-center px-12">
+          {/* Logo */}
+          <div className="inline-flex items-center justify-center w-28 h-28 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-3xl mb-8 shadow-2xl shadow-blue-500/30 relative">
+            <span className="text-6xl">🌊</span>
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-cyan-400 to-blue-600 opacity-50 blur-xl" />
+          </div>
+
+          <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
+            BAWEAN
+          </h1>
+          <p className="text-xl text-blue-200/70 font-medium mb-6">
+            ACTION
+          </p>
+          <p className="text-gray-400 max-w-sm leading-relaxed">
+            Navigasi Cermat, Nelayan Selamat, Bebas Limbah
+          </p>
+
+          {/* Decorative dots */}
+          <div className="flex justify-center gap-2 mt-8">
+            <div className="w-2 h-2 bg-blue-400 rounded-full" />
+            <div className="w-2 h-2 bg-cyan-400 rounded-full" />
+            <div className="w-2 h-2 bg-purple-400 rounded-full" />
+          </div>
+        </div>
+      </div>
+
+      {/* Right side - Register Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 relative z-10">
+        <div className="w-full max-w-md">
+          {/* Mobile logo */}
+          <div className="lg:hidden text-center mb-8">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-2xl mb-4 shadow-lg shadow-blue-500/25">
+              <span className="text-3xl">🌊</span>
+            </div>
+            <h2 className="text-2xl font-bold text-white">Bawean Action</h2>
+          </div>
+
+          {/* Form Card */}
+          <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
+            <h2 className="text-2xl font-bold text-white mb-2">Daftar Akun</h2>
+            <p className="text-gray-400 text-sm mb-6">
+              Buat akun Bawean Action baru
+            </p>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                  Nama Lengkap <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData({ ...formData, name: e.target.value })
+                  }
+                  className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  placeholder="Nama lengkap Anda"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                  Daftar sebagai <span className="text-red-400">*</span>
+                </label>
+                <div className="grid grid-cols-2 gap-3">
+                  <label
+                    className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer transition-all text-sm ${
+                      formData.role === "nelayan"
+                        ? "border-blue-500 bg-blue-500/10 text-blue-400"
+                        : "border-white/10 hover:border-white/20 text-gray-400"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="role"
+                      value="nelayan"
+                      checked={formData.role === "nelayan"}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          role: e.target.value as RoleOption,
+                        })
+                      }
+                      className="sr-only"
+                    />
+                    <span className="font-medium">Nelayan</span>
+                  </label>
+                  <label
+                    className={`flex items-center justify-center p-3 border rounded-xl cursor-pointer transition-all text-sm ${
+                      formData.role === "masyarakat"
+                        ? "border-blue-500 bg-blue-500/10 text-blue-400"
+                        : "border-white/10 hover:border-white/20 text-gray-400"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="role"
+                      value="masyarakat"
+                      checked={formData.role === "masyarakat"}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          role: e.target.value as RoleOption,
+                        })
+                      }
+                      className="sr-only"
+                    />
+                    <span className="font-medium">Masyarakat</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                  Email <span className="text-red-400">*</span>
+                </label>
+                <input
+                  type="email"
+                  autoComplete="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                  placeholder="email@domain.com"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                    Telepon
+                  </label>
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) =>
+                      setFormData({ ...formData, phone: e.target.value })
+                    }
+                    className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    placeholder="0812-3456-7890"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                    Desa
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.village}
+                    onChange={(e) =>
+                      setFormData({ ...formData, village: e.target.value })
+                    }
+                    className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    placeholder="Desa Anda"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                    Password <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    value={formData.password}
+                    onChange={(e) =>
+                      setFormData({ ...formData, password: e.target.value })
+                    }
+                    className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    placeholder="Minimal 6 karakter"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                    Konfirmasi <span className="text-red-400">*</span>
+                  </label>
+                  <input
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    value={formData.confirmPassword}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        confirmPassword: e.target.value,
+                      })
+                    }
+                    className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    placeholder="Ulangi password"
+                  />
+                </div>
+              </div>
+
+              {error && (
+                <div className="bg-red-500/10 border border-red-500/20 text-red-400 p-3 rounded-xl text-sm">
+                  {error}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-xl transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Memproses...
+                  </div>
+                ) : (
+                  "Daftar"
+                )}
+              </button>
+            </form>
+          </div>
+
+          {/* Login link */}
+          <p className="text-center text-gray-400 text-sm mt-6">
             Sudah punya akun?{" "}
             <Link
               href="/auth/login"
-              className="font-medium text-blue-600 hover:text-blue-500"
+              className="text-blue-400 hover:text-blue-300 font-medium transition-colors"
             >
               Masuk di sini
             </Link>
           </p>
+
+          {/* Footer */}
+          <p className="text-center text-gray-600 text-xs mt-8">
+            &copy; 2026 Bawean Action. All rights reserved.
+          </p>
         </div>
-
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Nama Lengkap <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                required
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Nama lengkap Anda"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Daftar sebagai <span className="text-red-500">*</span>
-              </label>
-              <div className="mt-2 space-y-2">
-                <label
-                  className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
-                    formData.role === "nelayan"
-                      ? "border-blue-500 bg-blue-50"
-                      : "border-gray-300 hover:border-gray-400"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="role"
-                    value="nelayan"
-                    checked={formData.role === "nelayan"}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        role: e.target.value as RoleOption,
-                      })
-                    }
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                  />
-                  <span className="ml-3">
-                    <span className="block text-sm font-medium text-gray-900">
-                      Nelayan
-                    </span>
-                    <span className="block text-xs text-gray-500">
-                      Akses informasi keselamatan dan checklist melaut
-                    </span>
-                  </span>
-                </label>
-                <label
-                  className={`flex items-center p-3 border rounded-lg cursor-pointer transition-colors ${
-                    formData.role === "masyarakat"
-                      ? "border-blue-500 bg-blue-50"
-                      : "border-gray-300 hover:border-gray-400"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="role"
-                    value="masyarakat"
-                    checked={formData.role === "masyarakat"}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        role: e.target.value as RoleOption,
-                      })
-                    }
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300"
-                  />
-                  <span className="ml-3">
-                    <span className="block text-sm font-medium text-gray-900">
-                      Masyarakat
-                    </span>
-                    <span className="block text-xs text-gray-500">
-                      Lapor limbah, sampaikan aspirasi, dan jelajahi produk
-                    </span>
-                  </span>
-                </label>
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                required
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="email@example.com"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="phone"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Nomor Telepon
-              </label>
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
-                }
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="0812-3456-7890"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="village"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Desa/Kelurahan
-              </label>
-              <input
-                id="village"
-                name="village"
-                type="text"
-                value={formData.village}
-                onChange={(e) =>
-                  setFormData({ ...formData, village: e.target.value })
-                }
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="Desa/Kelurahan Anda"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Password <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="new-password"
-                required
-                value={formData.password}
-                onChange={(e) =>
-                  setFormData({ ...formData, password: e.target.value })
-                }
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="••••••••"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="confirmPassword"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Konfirmasi Password <span className="text-red-500">*</span>
-              </label>
-              <input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                autoComplete="new-password"
-                required
-                value={formData.confirmPassword}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    confirmPassword: e.target.value,
-                  })
-                }
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="••••••••"
-              />
-            </div>
-          </div>
-
-          {error && (
-            <div className="bg-red-50 text-red-700 p-3 rounded-lg text-sm">
-              {error}
-            </div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? "Memproses..." : "Daftar"}
-          </button>
-        </form>
       </div>
     </div>
   );
