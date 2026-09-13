@@ -97,7 +97,7 @@ export function useAuth() {
       const { error: profileError } = await supabase.from("profiles").insert({
         id: data.user.id,
         name,
-        role: "public",
+        role: "masyarakat",
       });
 
       if (profileError) {

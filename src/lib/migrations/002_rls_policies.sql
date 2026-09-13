@@ -143,16 +143,11 @@ CREATE POLICY "Users can view own waste reports"
   TO authenticated
   USING (reporter_id = auth.uid());
 
--- Masyarakat can create waste reports
-CREATE POLICY "Masyarakat can create waste reports"
+-- All authenticated users can create waste reports
+CREATE POLICY "Authenticated users can create waste reports"
   ON waste_reports FOR INSERT
   TO authenticated
-  WITH CHECK (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE id = auth.uid() AND role IN ('masyarakat', 'admin')
-    )
-  );
+  WITH CHECK (true);
 
 -- Users can update their own pending waste reports
 CREATE POLICY "Users can update own pending waste reports"
@@ -215,16 +210,11 @@ CREATE POLICY "Users can view own aspirations"
   TO authenticated
   USING (reporter_id = auth.uid());
 
--- Masyarakat can create aspirations
-CREATE POLICY "Masyarakat can create aspirations"
+-- All authenticated users can create aspirations
+CREATE POLICY "Authenticated users can create aspirations"
   ON aspirations FOR INSERT
   TO authenticated
-  WITH CHECK (
-    EXISTS (
-      SELECT 1 FROM profiles
-      WHERE id = auth.uid() AND role IN ('masyarakat', 'admin')
-    )
-  );
+  WITH CHECK (true);
 
 -- Users can update their own pending aspirations
 CREATE POLICY "Users can update own pending aspirations"
