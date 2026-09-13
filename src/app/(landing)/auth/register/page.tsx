@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 
 type RoleOption = "nelayan" | "masyarakat";
@@ -18,13 +19,12 @@ export default function RegisterPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const { signUp } = useAuth();
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    setSuccess(null);
 
     if (!formData.role) {
       setError("Silakan pilih role pengguna!");
@@ -52,9 +52,7 @@ export default function RegisterPage() {
         formData.phone || undefined,
         formData.village || undefined
       );
-      setSuccess(
-        "Registrasi berhasil! Silakan cek email Anda untuk verifikasi, lalu login."
-      );
+      router.push("/");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Gagal mendaftar");
     } finally {
@@ -283,12 +281,6 @@ export default function RegisterPage() {
           {error && (
             <div className="bg-red-50 text-red-700 p-3 rounded-lg text-sm">
               {error}
-            </div>
-          )}
-
-          {success && (
-            <div className="bg-green-50 text-green-700 p-3 rounded-lg text-sm">
-              {success}
             </div>
           )}
 

@@ -93,6 +93,7 @@ export function useAuth() {
       password,
       options: {
         data: { name },
+        emailRedirectTo: window.location.origin,
       },
     });
 
@@ -125,6 +126,18 @@ export function useAuth() {
         throw new Error(
           "Akun berhasil dibuat namun gagal membuat profil. Silakan hubungi admin."
         );
+      }
+
+      // Auto sign-in after successful registration
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (signInError) {
+        // If auto sign-in fails (e.g. email confirmation required),
+        // the user can still sign in manually
+        console.error("Auto sign-in failed:", signInError);
       }
     }
 

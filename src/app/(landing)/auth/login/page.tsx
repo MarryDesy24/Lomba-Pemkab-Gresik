@@ -20,7 +20,7 @@ export default function LoginPage() {
 
     try {
       await signIn(email, password);
-      router.push("/");
+      router.push("/keselamatan");
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Email atau password salah"

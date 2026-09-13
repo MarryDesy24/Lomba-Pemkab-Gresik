@@ -3,6 +3,36 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="bg-gray-50">
+      {/* Landing Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-50">
+        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex items-center">
+              <Link href="/" className="flex items-center space-x-2">
+                <span className="text-2xl">🌊</span>
+                <span className="font-bold text-xl text-blue-600">
+                  Bawean Action
+                </span>
+              </Link>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Link
+                href="/auth/login"
+                className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+              >
+                Masuk
+              </Link>
+              <Link
+                href="/auth/register"
+                className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium"
+              >
+                Daftar
+              </Link>
+            </div>
+          </div>
+        </nav>
+      </header>
+
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
