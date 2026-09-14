@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
@@ -7,6 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 export default function Header() {
   const { user, profile, signOut, loading } = useAuth();
   const router = useRouter();
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleSignOut = async () => {
     await signOut();
@@ -14,79 +16,100 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-[#12304A] sticky top-0 z-50">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="text-2xl">🌊</span>
-              <span className="font-bold text-xl text-blue-600">
-                Bawean Action
-              </span>
-            </Link>
-          </div>
+        <div className="flex justify-between h-14 sm:h-16 items-center">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-br from-[#20C7D9] to-[#087FC1] rounded-lg flex items-center justify-center">
+              <span className="text-sm">🌊</span>
+            </div>
+            <span className="font-bold text-lg text-white">
+              Bawean Action
+            </span>
+          </Link>
 
-          <div className="hidden md:flex items-center space-x-4">
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center space-x-1">
             <Link
               href="/keselamatan"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+              className="text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
             >
               Keselamatan
             </Link>
             <Link
               href="/lapor-limbah"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+              className="text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
             >
               Lapor Limbah
             </Link>
             <Link
               href="/aspirasi"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+              className="text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
             >
               Aspirasi
             </Link>
             <Link
               href="/produk"
-              className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+              className="text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
             >
               Produk
             </Link>
           </div>
 
-          <div className="flex items-center space-x-4">
+          {/* Right side */}
+          <div className="flex items-center space-x-2 sm:space-x-3">
             {loading ? (
-              <div className="h-8 w-8 animate-spin rounded-full border-2 border-gray-300 border-t-blue-600" />
+              <div className="h-7 w-7 sm:h-8 sm:w-8 animate-spin rounded-full border-2 border-white/30 border-t-[#20C7D9]" />
             ) : user ? (
-              <div className="flex items-center space-x-4">
-                {profile?.role === "admin" && (
-                  <Link
-                    href="/dashboard/admin"
-                    className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+              <>
+                {/* Desktop user info */}
+                <div className="hidden md:flex items-center space-x-3">
+                  {profile?.role === "admin" && (
+                    <Link
+                      href="/dashboard/admin"
+                      className="text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+                    >
+                      Dashboard
+                    </Link>
+                  )}
+                  <span className="text-sm text-gray-300">
+                    {profile?.name}
+                  </span>
+                  <button
+                    onClick={handleSignOut}
+                    className="text-gray-300 hover:text-[#F4B942] hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
                   >
-                    Dashboard
-                  </Link>
-                )}
-                <span className="text-sm text-gray-600">
-                  {profile?.name}
-                </span>
+                    Keluar
+                  </button>
+                </div>
+
+                {/* Mobile hamburger */}
                 <button
-                  onClick={handleSignOut}
-                  className="text-gray-700 hover:text-red-600 px-3 py-2 text-sm font-medium"
+                  onClick={() => setMobileOpen(!mobileOpen)}
+                  className="md:hidden text-gray-300 hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
+                  aria-label="Toggle menu"
                 >
-                  Keluar
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {mobileOpen ? (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    ) : (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                    )}
+                  </svg>
                 </button>
-              </div>
+              </>
             ) : (
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 sm:space-x-3">
                 <Link
                   href="/auth/login"
-                  className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium"
+                  className="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium transition-colors"
                 >
                   Masuk
                 </Link>
                 <Link
                   href="/auth/register"
-                  className="bg-blue-600 text-white hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-medium"
+                  className="bg-[#087FC1] text-white hover:bg-[#075985] px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-sm font-medium transition-colors"
                 >
                   Daftar
                 </Link>
@@ -94,6 +117,63 @@ export default function Header() {
             )}
           </div>
         </div>
+
+        {/* Mobile menu dropdown */}
+        {mobileOpen && user && (
+          <div className="md:hidden border-t border-white/10 py-3 space-y-1">
+            <Link
+              href="/keselamatan"
+              onClick={() => setMobileOpen(false)}
+              className="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Keselamatan
+            </Link>
+            <Link
+              href="/lapor-limbah"
+              onClick={() => setMobileOpen(false)}
+              className="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Lapor Limbah
+            </Link>
+            <Link
+              href="/aspirasi"
+              onClick={() => setMobileOpen(false)}
+              className="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Aspirasi
+            </Link>
+            <Link
+              href="/produk"
+              onClick={() => setMobileOpen(false)}
+              className="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              Produk
+            </Link>
+            {profile?.role === "admin" && (
+              <Link
+                href="/dashboard/admin"
+                onClick={() => setMobileOpen(false)}
+                className="block text-gray-300 hover:text-white hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+              >
+                Dashboard
+              </Link>
+            )}
+            <div className="border-t border-white/10 pt-2 mt-2">
+              <span className="block text-gray-400 text-xs px-3 mb-1">
+                {profile?.name}
+              </span>
+              <button
+                onClick={() => {
+                  setMobileOpen(false);
+                  handleSignOut();
+                }}
+                className="w-full text-left text-gray-300 hover:text-[#F4B942] hover:bg-white/10 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+              >
+                Keluar
+              </button>
+            </div>
+          </div>
+        )}
       </nav>
     </header>
   );

@@ -2,7 +2,15 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #12304A;
+  --bawean-primary: #087FC1;
+  --bawean-dark: #075985;
+  --bawean-cyan: #20C7D9;
+  --bawean-light-cyan: #E0F7FA;
+  --bawean-warm: #FFF8E7;
+  --bawean-gold: #F4B942;
+  --bawean-light-gold: #F3E3C3;
+  --bawean-navy: #12304A;
 }
 
 @theme inline {
@@ -22,25 +30,35 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar for dark theme */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0b1120;
+  background: #12304A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e3a5f;
+  background: #087FC1;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #2563eb;
+  background: #20C7D9;
 }
