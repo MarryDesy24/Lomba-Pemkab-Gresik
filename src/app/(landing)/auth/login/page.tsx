@@ -47,9 +47,12 @@ export default function LoginPage() {
 
         <div className="relative z-10 text-center px-12">
           {/* Logo */}
-          <div className="inline-flex items-center justify-center w-28 h-28 bg-gradient-to-br from-[#20C7D9] to-[#087FC1] rounded-3xl mb-8 shadow-2xl shadow-[#087FC1]/30 relative">
-            <span className="text-6xl">🌊</span>
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#20C7D9] to-[#087FC1] opacity-50 blur-xl" />
+          <div className="mb-8">
+            <img
+              src="/Logo%20Bawean%20Action.svg"
+              alt="Logo Bawean Action"
+              className="h-28 w-28 mx-auto object-contain"
+            />
           </div>
 
           <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
@@ -76,9 +79,11 @@ export default function LoginPage() {
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="lg:hidden text-center mb-6 sm:mb-8">
-            <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-[#20C7D9] to-[#087FC1] rounded-2xl mb-3 sm:mb-4 shadow-lg shadow-[#087FC1]/25">
-              <span className="text-2xl sm:text-3xl">🌊</span>
-            </div>
+            <img
+              src="/Logo%20Bawean%20Action.svg"
+              alt="Logo Bawean Action"
+              className="h-14 w-14 sm:h-16 sm:w-16 mx-auto mb-3 sm:mb-4 object-contain"
+            />
             <h2 className="text-xl sm:text-2xl font-bold text-white">Bawean Action</h2>
           </div>
 

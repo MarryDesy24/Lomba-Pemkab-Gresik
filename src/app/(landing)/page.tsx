@@ -18,9 +18,11 @@ export default function Home() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 sm:h-20 items-center">
             <Link href="/" className="flex items-center space-x-2 sm:space-x-3">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-br from-[#20C7D9] to-[#087FC1] rounded-xl flex items-center justify-center shadow-lg shadow-[#087FC1]/25">
-                <span className="text-lg sm:text-xl">🌊</span>
-              </div>
+              <img
+                src="/Logo%20Bawean%20Action.svg"
+                alt="Logo Bawean Action"
+                className="h-9 w-9 sm:h-10 sm:w-10 object-contain"
+              />
               <span className="font-bold text-lg sm:text-xl text-white tracking-tight">
                 Bawean Action
               </span>
@@ -48,9 +50,12 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             {/* Logo */}
-            <div className="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-[#20C7D9] to-[#087FC1] rounded-3xl mb-6 sm:mb-8 shadow-2xl shadow-[#087FC1]/30 relative">
-              <span className="text-4xl sm:text-5xl">🌊</span>
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-[#20C7D9] to-[#087FC1] opacity-50 blur-xl" />
+            <div className="mb-6 sm:mb-8">
+              <img
+                src="/Logo%20Bawean%20Action.svg"
+                alt="Logo Bawean Action"
+                className="h-20 w-20 sm:h-24 sm:w-24 mx-auto object-contain"
+              />
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-[#E0F7FA] to-[#20C7D9] bg-clip-text text-transparent leading-tight">
@@ -196,13 +201,15 @@ export default function Home() {
       <footer className="relative z-10 border-t border-white/5 py-8 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="flex items-center justify-center space-x-2 sm:space-x-3 mb-3 sm:mb-4">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-[#20C7D9] to-[#087FC1] rounded-lg flex items-center justify-center">
-              <span className="text-xs sm:text-sm">🌊</span>
-            </div>
+            <img
+              src="/Logo%20Bawean%20Action.svg"
+              alt="Logo Bawean Action"
+              className="h-7 w-7 sm:h-8 sm:w-8 object-contain"
+            />
             <span className="font-bold text-sm sm:text-white">Bawean Action</span>
           </div>
           <p className="text-gray-500 text-xs sm:text-sm">
-            &copy; 2026 Bawean Action. GIK 2026.
+            Satu Aksi untuk Bawean, Mendorong Perekonomian.
           </p>
         </div>
       </footer>

@@ -21,9 +21,11 @@ export default function Header() {
         <div className="flex justify-between h-14 sm:h-16 items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-[#20C7D9] to-[#087FC1] rounded-lg flex items-center justify-center">
-              <span className="text-sm">🌊</span>
-            </div>
+            <img
+              src="/Logo%20Bawean%20Action.svg"
+              alt="Logo Bawean Action"
+              className="h-8 w-8 sm:h-9 sm:w-9 object-contain"
+            />
             <span className="font-bold text-lg text-white">
               Bawean Action
             </span>

@@ -7,14 +7,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-1 sm:col-span-2 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-[#20C7D9] to-[#087FC1] rounded-lg flex items-center justify-center">
-                <span className="text-sm">🌊</span>
-              </div>
+              <img
+                src="/Logo%20Bawean%20Action.svg"
+                alt="Logo Bawean Action"
+                className="h-8 w-8 object-contain"
+              />
               <span className="font-bold text-xl">Bawean Action</span>
             </div>
             <p className="text-gray-400 text-sm max-w-md">
-              Platform digital untuk keselamatan nelayan, pengelolaan limbah,
-              aspirasi masyarakat, dan promosi produk perikanan di Bawean.
+              Satu Aksi untuk Bawean, Mendorong Perekonomian.
             </p>
           </div>
 
