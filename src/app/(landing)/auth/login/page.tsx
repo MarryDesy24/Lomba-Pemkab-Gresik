@@ -51,7 +51,7 @@ export default function LoginPage() {
             <img
               src="/Logo%20Bawean%20Action.svg"
               alt="Logo Bawean Action"
-              className="h-40 w-40 mx-auto object-contain"
+              className="h-52 w-52 mx-auto object-contain"
             />
           </div>
 
