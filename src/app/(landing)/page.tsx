@@ -54,7 +54,7 @@ export default function Home() {
               <img
                 src="/Logo%20Bawean%20Action.svg"
                 alt="Logo Bawean Action"
-                className="h-32 w-32 sm:h-44 sm:w-44 mx-auto object-contain"
+                className="h-48 w-48 sm:h-64 sm:w-64 md:h-72 md:w-72 mx-auto object-contain"
               />
             </div>
 
